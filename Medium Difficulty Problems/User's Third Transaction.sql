@@ -7,9 +7,9 @@
     -- We also include (PARTITION BY user_id) to divide/partition our result set into independent groups based on user_id.
         -- This way, our window function is performed separately within each partition. 
         -- In this example, each user_id will have it's own (1,2,3...) sequence.
-WITH transaction_numbers AS   (SELECT     *,
-                                    ROW_NUMBER() OVER(PARTITION BY user_id ORDER BY transaction_date ASC) as transaction_num 
-                        FROM        transactions)
+WITH transaction_numbers AS    (SELECT     *,
+                                            ROW_NUMBER() OVER(PARTITION BY user_id ORDER BY transaction_date ASC) as transaction_num 
+                                FROM        transactions)
 
 -- Now, we just select the transactions with a transaction_num = 3, since that signifies the user's third transaction (if they have one).
 SELECT      user_id, 
